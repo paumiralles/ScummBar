@@ -10,13 +10,13 @@ import com.scummbar.modelo.dto.CancelarDto;
 import com.scummbar.modelo.entities.Reserva;
 import com.scummbar.modelo.entities.Restaurante;
 import com.scummbar.modelo.entities.Turno;
-import com.scummbar.modelo.negocio.INegocioRestaurante;
+import com.scummbar.modelo.negocio.NegocioRestaurante;
 
 @Controller
 public class ControladorCancelaciones {
 
 	@Autowired
-	INegocioRestaurante negocioRestaurante;
+	NegocioRestaurante negocioRestaurante;
 
 	@RequestMapping(value = "/cancelar", method = RequestMethod.GET)
 	public ModelAndView verFormulario() {

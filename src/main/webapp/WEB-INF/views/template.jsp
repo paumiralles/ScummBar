@@ -10,6 +10,17 @@
 				height: 100%;
 				overflow: hidden;
 			}
+			
+			table, th, td {
+				border: 1px solid black; 
+				
+ 				border-spacing=0;	 
+			}
+			
+			td{
+				text-align: center;
+				height: 40px;
+			}
 			.page {
 				min-height: 100%;
 				position: relative;

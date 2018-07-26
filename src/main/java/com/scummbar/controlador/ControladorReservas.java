@@ -15,13 +15,13 @@ import com.scummbar.modelo.entities.Mesa;
 import com.scummbar.modelo.entities.Reserva;
 import com.scummbar.modelo.entities.Restaurante;
 import com.scummbar.modelo.entities.Turno;
-import com.scummbar.modelo.negocio.INegocioRestaurante;
+import com.scummbar.modelo.negocio.NegocioRestaurante;
 
 @Controller
 public class ControladorReservas {
 
 	@Autowired
-	INegocioRestaurante negocioRestaurante;
+	NegocioRestaurante negocioRestaurante;
 
 	@RequestMapping(value = "/reservar", method = RequestMethod.GET)
 	public ModelAndView verFormulario() {
