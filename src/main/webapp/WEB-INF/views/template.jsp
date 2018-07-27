@@ -1,4 +1,5 @@
 <%@ taglib uri = "http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ page isELIgnored="false"%>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,7 +12,7 @@
 				overflow: hidden;
 			}
 			
-			table, th, td {
+			table.table1, th.table1, td.table1 {
 				border: 1px solid black; 
 				
  				border-spacing=0;	 

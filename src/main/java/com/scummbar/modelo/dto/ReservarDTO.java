@@ -3,12 +3,9 @@ package com.scummbar.modelo.dto;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.scummbar.modelo.entities.Restaurante;
 import com.scummbar.modelo.entities.Turno;
 
-@Service
 public class ReservarDTO {
 	private List<Restaurante> restaurantes;
 	private List<Turno> turnos;
@@ -64,5 +61,4 @@ public class ReservarDTO {
 	public void setPersonas(Integer personas) {
 		this.personas = personas;
 	}
-
 }

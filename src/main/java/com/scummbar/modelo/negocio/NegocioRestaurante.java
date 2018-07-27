@@ -7,6 +7,7 @@ import com.scummbar.modelo.entities.Restaurante;
 import com.scummbar.modelo.entities.Turno;
 
 public interface NegocioRestaurante {
+
 	public void addRestaurante(Restaurante restaurante);
 
 	public void updateRestaurante(Restaurante restaurante);
@@ -17,10 +18,8 @@ public interface NegocioRestaurante {
 
 	public List<Restaurante> getRestaurantes();
 
-	public Reserva reservar(Restaurante restaurante, Reserva reserva);
-
-	public Object cancelarReserva(Restaurante restaurante, Reserva reserva);
-
 	public List<Turno> getTurnos();
+
+	public Object reserva(Restaurante restaurante, Reserva reserva);
 
 }

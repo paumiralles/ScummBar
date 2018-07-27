@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -29,7 +30,32 @@ public class Reserva {
 	private String localizador;
 
 	@OneToOne
+	@JoinColumn(name = "turno_id", nullable = false, insertable = true)
 	private Turno turno;
+
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
+	}
+
+	public Mesa getMesa() {
+		return mesa;
+	}
+
+	public void setMesa(Mesa mesa) {
+		this.mesa = mesa;
+	}
+
+	@OneToOne
+	@JoinColumn(name = "restaurante_id", nullable = false, insertable = true)
+	private Restaurante restaurante;
+
+	@OneToOne
+	@JoinColumn(name = "mesa_id", nullable = false, insertable = true)
+	private Mesa mesa;
 
 	public Reserva() {
 		super();
