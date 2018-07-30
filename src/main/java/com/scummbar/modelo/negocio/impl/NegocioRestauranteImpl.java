@@ -1,4 +1,4 @@
-package com.scummbar.modelo.negocio;
+package com.scummbar.modelo.negocio.impl;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import com.scummbar.dao.TurnoDAO;
 import com.scummbar.modelo.entities.Reserva;
 import com.scummbar.modelo.entities.Restaurante;
 import com.scummbar.modelo.entities.Turno;
+import com.scummbar.modelo.negocio.NegocioRestaurante;
 
 @Service
 @Transactional
@@ -62,8 +63,8 @@ public class NegocioRestauranteImpl implements NegocioRestaurante {
 	}
 
 	public void cancelar(Restaurante restaurante, Reserva reserva) {
-		Long id = null;
-		reservaDAO.deleteReserva(id);
+		String code = "";
+		reservaDAO.deleteReserva(code);
 
 	}
 

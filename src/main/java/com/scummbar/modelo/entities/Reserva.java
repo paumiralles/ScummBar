@@ -26,7 +26,7 @@ public class Reserva {
 	@Column(name = "personas", nullable = false)
 	private Integer personas;
 
-	@Column(name = "localizador", nullable = false, length = 100)
+	@Column(name = "localizador", nullable = false, length = 100, unique = true)
 	private String localizador;
 
 	@OneToOne
