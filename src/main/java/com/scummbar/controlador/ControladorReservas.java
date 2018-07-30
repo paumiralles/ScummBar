@@ -20,6 +20,7 @@ public class ControladorReservas {
 
 	@Autowired
 	NegocioRestaurante negocioRestaurante;
+	@Autowired
 	NegocioReserva negocioReserva;
 
 	@RequestMapping(value = "/reservar", method = RequestMethod.GET)
@@ -41,7 +42,7 @@ public class ControladorReservas {
 		Turno turno = new Turno();
 		Reserva reserva = new Reserva();
 		Mesa mesa = new Mesa();
-//		String localizador = negocioReserva.getLocalizador();
+		String localizador = negocioReserva.getLocalizador();
 		reserva.setDia(dto.getDia());
 		reserva.setPersonas(dto.getPersonas());
 		restaurante.setId(dto.getRestauranteId());
@@ -51,7 +52,7 @@ public class ControladorReservas {
 		mesa.setId(1L);
 		reserva.setMesa(mesa);
 
-		reserva.setLocalizador("");
+		reserva.setLocalizador(localizador);
 
 		model.addObject("reserva", negocioRestaurante.reserva(restaurante, reserva));
 

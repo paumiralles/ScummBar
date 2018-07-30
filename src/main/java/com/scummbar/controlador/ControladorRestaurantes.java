@@ -1,6 +1,6 @@
 package com.scummbar.controlador;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,18 +9,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.scummbar.modelo.entities.Restaurante;
-import com.scummbar.modelo.negocio.INegocioRestaurante;
+import com.scummbar.modelo.negocio.NegocioRestaurante;
 
 @Controller
-public class ControladorNuestrosRestaurantes {
+
+public class ControladorRestaurantes {
+
 	@Autowired
-	INegocioRestaurante negocioRestaurante;
-	
+	private NegocioRestaurante negocioRestaurante;
+
 	@RequestMapping(value = "/restaurantes", method = RequestMethod.GET)
 	public ModelAndView restaurantes() {
 		ModelAndView model = new ModelAndView("restaurantes");
-		Collection<Restaurante> listaRestaurantes = negocioRestaurante.getRestaurantes();
-		model.addObject("listaRestaurantes", listaRestaurantes);
+
+		List<Restaurante> restaurantes = negocioRestaurante.getRestaurantes();
+		model.addObject("restaurantes", restaurantes);
 		return model;
-		}
+	}
 }

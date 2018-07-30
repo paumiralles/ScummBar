@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -11,7 +11,7 @@ css">
 <script>
 	$(function() {
 		$('#dia').datepicker({
-			dateFormat : 'dd/mm/yy'
+			dateFormat : 'mm/dd/yy'
 		});
 		$('#dia').attr('readonly', true);
 	});
@@ -27,6 +27,7 @@ css">
 
 
 		<div class="body">
+			
 			<h1>Reservar</h1>
 			<p>Aquí puedes hacer una reserva</p>
 			<form:form method="POST" action="reservar">
@@ -39,7 +40,7 @@ css">
 				</div>
 				<div>
 					<label for="dia">Día</label>
-					<form:input path="dia" type="text" cssClass="datepicker" />
+					<form:input path="dia" type="text" cssClass="date-picker" />
 				</div>
 				<div>
 					<label for="turno">Turno</label>

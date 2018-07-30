@@ -11,5 +11,8 @@ pageEncoding="ISO-8859-1" isELIgnored="false"%>
 		<li><spring:url value="/cancelar" var="cancelUrl"
 				htmlEscape="true" /> <a href="${cancelUrl}">Cancelar una reserva</a>
 		</li>
+		<li><spring:url value="/cancelarLoc" var="cancelUrlLoc"
+				htmlEscape="true" /> <a href="${cancelUrlLoc}">Cancelar una reserva con localizador</a>
+		</li>
 	</ul>
 </div>

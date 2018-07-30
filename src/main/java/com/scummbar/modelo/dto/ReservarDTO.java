@@ -13,6 +13,7 @@ public class ReservarDTO {
 	private Date dia;
 	private Long turnoId;
 	private Integer personas;
+	private String localizador;
 
 	public List<Restaurante> getRestaurantes() {
 		return restaurantes;
@@ -60,5 +61,13 @@ public class ReservarDTO {
 
 	public void setPersonas(Integer personas) {
 		this.personas = personas;
+	}
+
+	public String getLocalizador() {
+		return localizador;
+	}
+
+	public void setLocalizador(String localizador) {
+		this.localizador = localizador;
 	}
 }

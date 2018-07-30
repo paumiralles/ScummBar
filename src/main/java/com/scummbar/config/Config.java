@@ -1,6 +1,7 @@
 package com.scummbar.config;
 
 import java.util.Properties;
+import java.util.TimeZone;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -48,7 +49,7 @@ public class Config {
 		dataSource.setUrl(env.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
 		dataSource.setUsername(env.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
 		dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
-
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC+2"));
 		return dataSource;
 	}
 
