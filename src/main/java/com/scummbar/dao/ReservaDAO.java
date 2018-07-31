@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.scummbar.modelo.entities.Reserva;
+import com.scummbar.modelo.exceptions.CancelacionException;
 
 public interface ReservaDAO {
 
@@ -13,7 +14,7 @@ public interface ReservaDAO {
 
 	public Reserva getReserva(long id);
 
-	public void deleteReserva(String code);
+	public void deleteReserva(String code) throws CancelacionException;
 
 	public List<Reserva> getReservas();
 

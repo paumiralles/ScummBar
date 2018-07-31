@@ -11,10 +11,13 @@ import org.springframework.stereotype.Repository;
 
 import com.scummbar.dao.ReservaDAO;
 import com.scummbar.modelo.entities.Reserva;
+import com.scummbar.modelo.exceptions.CancelacionException;
 
 @Repository
 
 public class ReservaDAOImpl implements ReservaDAO {
+
+	private static final String EL_LOCALIZADOR_NO_EXISTE = "El localizador no existe";
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -55,7 +58,7 @@ public class ReservaDAOImpl implements ReservaDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void deleteReserva(String code) {
+	public void deleteReserva(String code) throws CancelacionException {
 
 		Query query = getCurrentSession().createQuery("from Reserva where localizador = :code ");
 		query.setParameter("code", code);
@@ -63,7 +66,7 @@ public class ReservaDAOImpl implements ReservaDAO {
 		if (!list.isEmpty()) {
 			getCurrentSession().delete(list.get(0));
 		} else {
-
+			throw new CancelacionException(EL_LOCALIZADOR_NO_EXISTE);
 		}
 
 	}

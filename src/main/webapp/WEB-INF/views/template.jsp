@@ -18,10 +18,21 @@
  				border-spacing=0;	 
 			}
 			
+			table.table2, th.table2, td.table2 {
+				text-align: left; 
+				
+ 				border-spacing=0;	 
+			}
+			
 			td{
 				text-align: center;
 				height: 40px;
 			}
+			
+			fontmenu{
+				font-size: xx-large;
+			}
+			
 			.page {
 				min-height: 100%;
 				position: relative;
@@ -41,6 +52,7 @@
 				padding: 50px 10px 0px 10px;
 				width: 200px;
 				float: left;
+				font-size: x-large;
 			}
 			.body {
 				margin: 50px 10px 0px 250px;

@@ -15,6 +15,7 @@ import com.scummbar.dao.ReservaDAO;
 import com.scummbar.dao.RestauranteDAO;
 import com.scummbar.modelo.entities.Mesa;
 import com.scummbar.modelo.entities.Reserva;
+import com.scummbar.modelo.exceptions.CancelacionException;
 import com.scummbar.modelo.negocio.NegocioReserva;
 
 @Service
@@ -47,7 +48,7 @@ public class NegocioReservaImpl implements NegocioReserva {
 	}
 
 	@Override
-	public void deleteReserva(String code) {
+	public void deleteReserva(String code) throws CancelacionException {
 		reservaDAO.deleteReserva(code);
 
 	}

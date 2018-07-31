@@ -12,6 +12,7 @@ import com.scummbar.dao.TurnoDAO;
 import com.scummbar.modelo.entities.Reserva;
 import com.scummbar.modelo.entities.Restaurante;
 import com.scummbar.modelo.entities.Turno;
+import com.scummbar.modelo.exceptions.CancelacionException;
 import com.scummbar.modelo.negocio.NegocioRestaurante;
 
 @Service
@@ -67,7 +68,12 @@ public class NegocioRestauranteImpl implements NegocioRestaurante {
 	// Este metodo elimina una reserva a partir de un restaurante i una reserva
 	public void cancelar(Restaurante restaurante, Reserva reserva) {
 		String code = "";
-		reservaDAO.deleteReserva(code);
+		try {
+			reservaDAO.deleteReserva(code);
+		} catch (CancelacionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

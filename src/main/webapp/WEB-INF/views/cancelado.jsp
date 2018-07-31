@@ -13,7 +13,7 @@
 
 		<div class="body">
 
-			<div class="alert alert-block alert-success">Tu reserva ha sido cancelada</div>
+			<div class="alert alert-block alert-success">${mensajeCancel}</div>
 
 		</div>
 

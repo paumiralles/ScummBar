@@ -6,7 +6,8 @@
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.7.3/themes/base/jquery-ui.
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.7.3/themes/base/jquery-ui.
 css">
 <script>
 	$(function() {
@@ -27,7 +28,7 @@ css">
 
 
 		<div class="body">
-			
+
 			<h1>Reservar</h1>
 			<p>Aquí puedes hacer una reserva</p>
 			<form:form method="POST" action="reservar">
@@ -49,12 +50,17 @@ css">
 				</div>
 				<div>
 					<label for="personas">Personas</label>
-					<form:select path="personas" htmlEscape="true">
-						<c:forEach begin="1" end="10" var="count">
-							<form:option value="${count}" />
-						</c:forEach>
-					</form:select>
+					<form:input path="personas" />
 				</div>
+
+				<!-- 				<div> -->
+				<!-- 					<label for="personas">Personas</label> -->
+				<%-- 					<form:select path="personas" htmlEscape="true"> --%>
+				<%-- 						<c:forEach begin="1" end="10" var="count"> --%>
+				<%-- 							<form:option value="${count}" /> --%>
+				<%-- 						</c:forEach> --%>
+				<%-- 					</form:select> --%>
+				<!-- 				</div> -->
 				<div>
 					<button type="submit" value="Reservar">Reservar</button>
 				</div>

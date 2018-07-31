@@ -40,17 +40,20 @@ public class ControladorReservas {
 	@RequestMapping(value = "/reservar", method = RequestMethod.POST)
 	public ModelAndView addReserva(@ModelAttribute ReservarDTO dto) {
 
-		ModelAndView model = new ModelAndView("reservado");
 		Restaurante restaurante = new Restaurante(dto.getRestauranteId());
 		Turno turno = new Turno(dto.getTurnoId());
 		Mesa mesa = negocioReserva.getMesaLibre(dto.getRestauranteId(), dto.getDia(), dto.getTurnoId(),
 				dto.getPersonas());
+		if (mesa == null) {
+			return new ModelAndView("reservaNoPosible");
+		}
+		ModelAndView modelOk = new ModelAndView("reservado");
 		String localizador = negocioReserva.getLocalizador();
 
 		Reserva reserva = new Reserva(dto.getDia(), dto.getPersonas(), localizador, turno, mesa, restaurante);
 
-		model.addObject("reserva", negocioRestaurante.reserva(restaurante, reserva));
+		modelOk.addObject("reserva", negocioRestaurante.reserva(restaurante, reserva));
 
-		return model;
+		return modelOk;
 	}
 }
