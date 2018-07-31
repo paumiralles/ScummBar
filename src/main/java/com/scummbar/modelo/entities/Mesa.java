@@ -7,10 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//Esta clase crea una tabla en la base de datos con las columnas "id", "numero" y "capacidad", donde cada fila representa una mesa
 @Entity
 @Table(name = "mesas", catalog = "test")
 
-public class Mesa {
+public class Mesa implements Comparable<Mesa> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +56,11 @@ public class Mesa {
 
 		this.id = id;
 		this.capacidad = capacidad;
+	}
+
+	@Override
+	public int compareTo(Mesa mesa) {
+		return this.getCapacidad().compareTo(mesa.getCapacidad());
 	}
 
 }

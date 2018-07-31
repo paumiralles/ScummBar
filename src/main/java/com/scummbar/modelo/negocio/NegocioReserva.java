@@ -1,5 +1,7 @@
 package com.scummbar.modelo.negocio;
 
+//Este negocio gestiona todos los metodos relacionados con los reservas
+
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +22,6 @@ public interface NegocioReserva {
 
 	public String getLocalizador();
 
-	public Mesa getMesasLibres(Long restauranteId, Date dia, Long turnoId, Integer personas);
+	public Mesa getMesaLibre(Long restauranteId, Date dia, Long turnoId, Integer personas);
 
 }

@@ -1,5 +1,6 @@
 package com.scummbar.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -65,5 +66,18 @@ public class ReservaDAOImpl implements ReservaDAO {
 
 		}
 
+	}
+
+	// Este método retorna una lista con las reservas de un restaurante, de un dia y
+	// de un turno
+	@Override
+	public List<Reserva> getReservasByRestaurantAndDayAndTurn(Long restauranteId, Date dia, Long turnoId) {
+		Query query = getCurrentSession()
+				.createQuery("from Reserva where (restaurante_id = :rest and turno_id = :turno and dia = :date)");
+		query.setParameter("rest", restauranteId);
+		query.setParameter("date", dia);
+		query.setParameter("turno", turnoId);
+		List<Reserva> lista = query.list();
+		return lista;
 	}
 }

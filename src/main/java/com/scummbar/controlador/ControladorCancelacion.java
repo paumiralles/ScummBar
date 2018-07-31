@@ -23,6 +23,8 @@ public class ControladorCancelacion {
 	@Autowired
 	NegocioReserva negocioReserva;
 
+	// Este request imprime la vista con ell formulario para poder hacer una
+	// cancelacion
 	@RequestMapping(value = "/cancelar", method = RequestMethod.GET)
 	public ModelAndView cancelar() {
 
@@ -34,7 +36,7 @@ public class ControladorCancelacion {
 		return model;
 	}
 
-	@RequestMapping(value = "/cancelar", method = RequestMethod.POST)
+	// Este request imprime la vistar resumen unavez se ha realizado la cancelación
 	public ModelAndView removeReserva(@ModelAttribute ReservarDTO dto) {
 
 		ModelAndView model = new ModelAndView("cancelado");
@@ -59,6 +61,8 @@ public class ControladorCancelacion {
 		return model;
 	}
 
+	// Este request imprime la vista con el formulario para relaizar una reserva con
+	// el localizador
 	@RequestMapping(value = "/cancelarLoc", method = RequestMethod.GET)
 	public ModelAndView cancelarConLoc() {
 
@@ -70,6 +74,7 @@ public class ControladorCancelacion {
 		return model;
 	}
 
+	// Este request imprime la vista resumen una vez se ha realizado la cancelacion
 	@RequestMapping(value = "/cancelarLoc", method = RequestMethod.POST)
 	public ModelAndView removeReservaLoc(@ModelAttribute ReservarDTO dto) {
 

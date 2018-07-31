@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//Esta clase crea una tabla en la base de datos con las columnas "id", "descripcion", donde cada fila representa un turno
+
 @Entity
 @Table(name = "turnos", catalog = "test")
 
@@ -19,6 +21,11 @@ public class Turno {
 
 	@Column(name = "descripcion", nullable = false, length = 500)
 	private String descripcion;
+
+	public Turno(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public static Turno valueOf(Long turnoId) {
 		// TODO Auto-generated method stub
@@ -38,12 +45,6 @@ public class Turno {
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public Turno(Long id, String descripcion) {
-		super();
-		this.id = id;
 		this.descripcion = descripcion;
 	}
 

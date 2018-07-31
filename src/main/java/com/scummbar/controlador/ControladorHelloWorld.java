@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorHelloWorld {
 
+	// Este request imprime la vista home con solo el menu
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView restaurantes() {
 		ModelAndView model = new ModelAndView("home");

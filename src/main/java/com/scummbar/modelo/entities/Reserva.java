@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+//Esta clase crea una tabla en la base de datos con las columnas "id", "dia", "localizador" y "personas", donde cada fila representa una reserva
+
 @Entity
 @Table(name = "reservas", catalog = "test")
 public class Reserva {
@@ -29,25 +31,10 @@ public class Reserva {
 	@Column(name = "localizador", nullable = false, length = 100, unique = true)
 	private String localizador;
 
+	// Esta anotación representa que cada reserva tiene un turno
 	@OneToOne
 	@JoinColumn(name = "turno_id", nullable = false, insertable = true)
 	private Turno turno;
-
-	public Restaurante getRestaurante() {
-		return restaurante;
-	}
-
-	public void setRestaurante(Restaurante restaurante) {
-		this.restaurante = restaurante;
-	}
-
-	public Mesa getMesa() {
-		return mesa;
-	}
-
-	public void setMesa(Mesa mesa) {
-		this.mesa = mesa;
-	}
 
 	@OneToOne
 	@JoinColumn(name = "restaurante_id", nullable = false, insertable = true)
@@ -61,13 +48,14 @@ public class Reserva {
 		super();
 	}
 
-	public Reserva(Long id, Date dia, Integer personas, String localizador, Turno turno) {
+	public Reserva(Date dia, Integer personas, String localizador, Turno turno, Mesa mesa, Restaurante restaurante) {
 		super();
-		this.id = id;
 		this.dia = dia;
 		this.personas = personas;
 		this.localizador = localizador;
 		this.turno = turno;
+		this.mesa = mesa;
+		this.restaurante = restaurante;
 	}
 
 	public Long getId() {
@@ -108,6 +96,22 @@ public class Reserva {
 
 	public void setTurno(Turno turno) {
 		this.turno = turno;
+	}
+
+	public Restaurante getRestaurante() {
+		return restaurante;
+	}
+
+	public void setRestaurante(Restaurante restaurante) {
+		this.restaurante = restaurante;
+	}
+
+	public Mesa getMesa() {
+		return mesa;
+	}
+
+	public void setMesa(Mesa mesa) {
+		this.mesa = mesa;
 	}
 
 }

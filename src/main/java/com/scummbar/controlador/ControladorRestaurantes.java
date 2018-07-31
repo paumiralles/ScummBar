@@ -18,6 +18,7 @@ public class ControladorRestaurantes {
 	@Autowired
 	private NegocioRestaurante negocioRestaurante;
 
+	// Este request imprime la vista con todos los restaurantes del negocio
 	@RequestMapping(value = "/restaurantes", method = RequestMethod.GET)
 	public ModelAndView restaurantes() {
 		ModelAndView model = new ModelAndView("restaurantes");

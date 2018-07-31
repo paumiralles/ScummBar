@@ -23,6 +23,7 @@ public class ControladorReservas {
 	@Autowired
 	NegocioReserva negocioReserva;
 
+	// Este request imprime la vista con el formulario para poder hacer una reserva
 	@RequestMapping(value = "/reservar", method = RequestMethod.GET)
 	public ModelAndView paginaAddReserva() {
 
@@ -34,25 +35,19 @@ public class ControladorReservas {
 		return model;
 	}
 
+	// Este request imprime la vista resumen de la reserva con su identificador una
+	// vez esta se ha realizado
 	@RequestMapping(value = "/reservar", method = RequestMethod.POST)
 	public ModelAndView addReserva(@ModelAttribute ReservarDTO dto) {
 
 		ModelAndView model = new ModelAndView("reservado");
-		Restaurante restaurante = new Restaurante();
-		Turno turno = new Turno();
-		Reserva reserva = new Reserva();
-		Mesa mesa = new Mesa();
+		Restaurante restaurante = new Restaurante(dto.getRestauranteId());
+		Turno turno = new Turno(dto.getTurnoId());
+		Mesa mesa = negocioReserva.getMesaLibre(dto.getRestauranteId(), dto.getDia(), dto.getTurnoId(),
+				dto.getPersonas());
 		String localizador = negocioReserva.getLocalizador();
-		reserva.setDia(dto.getDia());
-		reserva.setPersonas(dto.getPersonas());
-		restaurante.setId(dto.getRestauranteId());
-		reserva.setRestaurante(restaurante);
-		turno.setId(dto.getTurnoId());
-		reserva.setTurno(turno);
-		mesa.setId(1L);
-		reserva.setMesa(mesa);
 
-		reserva.setLocalizador(localizador);
+		Reserva reserva = new Reserva(dto.getDia(), dto.getPersonas(), localizador, turno, mesa, restaurante);
 
 		model.addObject("reserva", negocioRestaurante.reserva(restaurante, reserva));
 

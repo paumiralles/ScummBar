@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+//Esta clase crea una tabla en la base de datos con las columnas "id", "nombre", "direccion" y "descripcion", donde cada fila representa un restaurante
+
 @Entity
 @Table(name = "restaurantes")
 
@@ -29,11 +31,19 @@ public class Restaurante {
 	@Column(name = "descripcion", nullable = false, length = 500)
 	private String descripcion;
 
+	// Esta anotación representa que cada restaurante tiene varias reservas
 	@OneToMany
 	private List<Reserva> reservas;
 
+	// Esta anotación representa que cada restaurante tiene varias mesas
 	@OneToMany
 	private List<Mesa> mesas;
+
+	public Restaurante(Long id) {
+		super();
+		this.id = id;
+
+	}
 
 	public void setId(Long restauranteId) {
 		this.id = restauranteId;
@@ -86,17 +96,6 @@ public class Restaurante {
 
 	public Restaurante() {
 		super();
-	}
-
-	public Restaurante(Long id, String nombre, String direccion, String descripcion, List<Reserva> reservas,
-			List<Mesa> mesas) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.direccion = direccion;
-		this.descripcion = descripcion;
-		this.reservas = reservas;
-		this.mesas = mesas;
 	}
 
 }

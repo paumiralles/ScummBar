@@ -1,5 +1,6 @@
 package com.scummbar.modelo.negocio;
 
+// Este negocio gestiona todos los metodos relacionados con los restaurantes
 import java.util.List;
 
 import com.scummbar.modelo.entities.Reserva;

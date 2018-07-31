@@ -56,12 +56,15 @@ public class NegocioRestauranteImpl implements NegocioRestaurante {
 
 	}
 
+	// Este metodo añade una reserva a la base de datos a partir de un restaurante i
+	// una reserva
 	@Override
 	public Reserva reserva(Restaurante restaurante, Reserva reserva) {
 		reservaDAO.addReserva(reserva);
 		return reserva;
 	}
 
+	// Este metodo elimina una reserva a partir de un restaurante i una reserva
 	public void cancelar(Restaurante restaurante, Reserva reserva) {
 		String code = "";
 		reservaDAO.deleteReserva(code);
