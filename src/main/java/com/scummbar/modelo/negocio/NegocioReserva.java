@@ -23,6 +23,6 @@ public interface NegocioReserva {
 
 	public String getLocalizador();
 
-	public Mesa getMesaLibre(Long restauranteId, Date dia, Long turnoId, Integer personas);
+	public Mesa getMesaLibreParaReserva(Long restauranteId, Date dia, Long turnoId, Integer personas);
 
 }

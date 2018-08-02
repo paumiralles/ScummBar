@@ -53,14 +53,7 @@ css">
 					<form:input path="personas" />
 				</div>
 
-				<!-- 				<div> -->
-				<!-- 					<label for="personas">Personas</label> -->
-				<%-- 					<form:select path="personas" htmlEscape="true"> --%>
-				<%-- 						<c:forEach begin="1" end="10" var="count"> --%>
-				<%-- 							<form:option value="${count}" /> --%>
-				<%-- 						</c:forEach> --%>
-				<%-- 					</form:select> --%>
-				<!-- 				</div> -->
+
 				<div>
 					<button type="submit" value="Reservar">Reservar</button>
 				</div>

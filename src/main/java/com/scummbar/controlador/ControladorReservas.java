@@ -42,7 +42,7 @@ public class ControladorReservas {
 
 		Restaurante restaurante = new Restaurante(dto.getRestauranteId());
 		Turno turno = new Turno(dto.getTurnoId());
-		Mesa mesa = negocioReserva.getMesaLibre(dto.getRestauranteId(), dto.getDia(), dto.getTurnoId(),
+		Mesa mesa = negocioReserva.getMesaLibreParaReserva(dto.getRestauranteId(), dto.getDia(), dto.getTurnoId(),
 				dto.getPersonas());
 		if (mesa == null) {
 			return new ModelAndView("reservaNoPosible");
