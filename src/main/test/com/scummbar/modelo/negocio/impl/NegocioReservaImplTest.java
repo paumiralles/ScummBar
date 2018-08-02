@@ -1,6 +1,7 @@
 package com.scummbar.modelo.negocio.impl;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
@@ -25,9 +26,12 @@ public class NegocioReservaImplTest {
 	private NegocioReservaImpl negocioReservaImpl;
 	private ReservaDAO reservaDAO;
 	private RestauranteDAO restauranteDAO;
-	private Mesa mockedMesaSinReserva = Mockito.mock(Mesa.class);
+	private Mesa mockedMesaSinReserva1 = Mockito.mock(Mesa.class);
+	private Mesa mockedMesaSinReserva2 = Mockito.mock(Mesa.class);
 	private Mesa mockedMesaConReserva1 = Mockito.mock(Mesa.class);
 	private Mesa mockedMesaConReserva2 = Mockito.mock(Mesa.class);
+	private Reserva mockedReserva1 = Mockito.mock(Reserva.class);
+	private Reserva mockedReserva2 = Mockito.mock(Reserva.class);
 
 	@Before
 	public void setup() {
@@ -37,6 +41,7 @@ public class NegocioReservaImplTest {
 
 	}
 
+	// Test getLocalizador()
 	@Test
 	public void getLocalizadorFunciona() {
 		String localizador = negocioReservaImpl.getLocalizador();
@@ -45,81 +50,131 @@ public class NegocioReservaImplTest {
 
 	}
 
+	// Test getMesasLibresDeRestaurante()
 	@Test
 	public void givenTwoTablesOneReservedThenReturnedOneFreeTable() {
-		// given - dado
-		List<Mesa> listaMesas = Arrays.asList(mockedMesaSinReserva, mockedMesaConReserva1);
+		// given
+		List<Mesa> listaMesas = Arrays.asList(mockedMesaSinReserva1, mockedMesaConReserva1);
+		List<Reserva> listaReservas = Arrays.asList(mockedReserva1);
 
-		Reserva mockedReserva = new Reserva();
-		mockedReserva.setMesa(mockedMesaConReserva1);
+		Mockito.when(mockedReserva1.getMesa()).thenReturn(mockedMesaConReserva1);
 
-		List<Reserva> listaReservas = Arrays.asList(mockedReserva);
+		List<Mesa> mesasLibresEsperadas = Arrays.asList(mockedMesaSinReserva1);
 
-		List<Mesa> expectedmesasLibres = Arrays.asList(mockedMesaSinReserva);
-
-		// when - cuando
+		// when
 		List<Mesa> mesasLibres = negocioReservaImpl.getMesasLibresDeRestaurante(listaMesas, listaReservas);
 
-		// then - entonces
+		// then
 		assertNotNull(mesasLibres);
 		assertEquals(mesasLibres.isEmpty(), false);
 		assertEquals(mesasLibres.size(), 1);
-		assertEquals(mesasLibres, expectedmesasLibres);
+		assertEquals(mesasLibres, mesasLibresEsperadas);
 
 	}
 
 	@Test
 	public void givenAllTablesReservedThenReturnedZeroFreeTable() {
-		// given - dado
+		// given
 		List<Mesa> listaMesas = Arrays.asList(mockedMesaConReserva1, mockedMesaConReserva2);
+		List<Reserva> listaReservas = Arrays.asList(mockedReserva1, mockedReserva2);
+		ArrayList<Mesa> mesasLibresEsperadas = new ArrayList<Mesa>();
+		Mockito.when(mockedReserva1.getMesa()).thenReturn(mockedMesaConReserva1);
+		Mockito.when(mockedReserva2.getMesa()).thenReturn(mockedMesaConReserva2);
 
-		Reserva mockedReserva = new Reserva();
-		mockedReserva.setMesa(mockedMesaConReserva1);
-		Reserva mockedReserva2 = new Reserva();
-		mockedReserva2.setMesa(mockedMesaConReserva2);
-
-		List<Reserva> listaReservas = Arrays.asList(mockedReserva, mockedReserva2);
-
-		// when - cuando
+		// when
 		List<Mesa> mesasLibres = negocioReservaImpl.getMesasLibresDeRestaurante(listaMesas, listaReservas);
 
-		// then - entonces
+		// then
 		assertNotNull(mesasLibres);
 		assertEquals(mesasLibres.isEmpty(), true);
-		assertEquals(mesasLibres, new ArrayList<Mesa>()); // Ejemplo poco usado y desaconsejado
+		assertEquals(mesasLibres, mesasLibresEsperadas); // Ejemplo poco usado y desaconsejado
+
+	}
+
+	// Test getMesaLibreParaReserva()
+	@Test
+	public void givenTwoTablesOneReservedOneOfEnoughCapacityThenReturnedTheFreeTable() {
+
+		// given
+		List<Mesa> listaMesas = Arrays.asList(mockedMesaSinReserva1, mockedMesaConReserva1);
+		List<Reserva> listaReservas = Arrays.asList(mockedReserva1);
+
+		Restaurante restaurante = new Restaurante();
+		long restauranteId = 1L;
+		restaurante.setId(restauranteId);
+		restaurante.setMesas(listaMesas);
+		long turnoId = 1L;
+		Date dia = new Date();
+
+		Mockito.when(mockedMesaSinReserva1.getCapacidad()).thenReturn(3);
+		Mockito.when(mockedMesaConReserva1.getCapacidad()).thenReturn(2);
+		Mockito.when(restauranteDAO.getRestaurante(restauranteId)).thenReturn(restaurante);
+		Mockito.when(mockedReserva1.getMesa()).thenReturn(mockedMesaConReserva1);
+		Mockito.when(reservaDAO.getReservasByRestaurantAndDayAndTurn(restauranteId, dia, turnoId))
+				.thenReturn(listaReservas);
+
+		Mesa expectedMesa = listaMesas.get(0);
+
+		// when
+		Mesa mesaLibre = negocioReservaImpl.getMesaLibreParaReserva(restauranteId, dia, turnoId, 2);
+
+		// then
+		assertNotNull(mesaLibre);
+		assertEquals(mesaLibre, expectedMesa);
 
 	}
 
 	@Test
-
-	public void getMesaLibreParaReservarFunciona() {
+	public void givenTablesReservedThenReturnedNull() {
 
 		// given
-
-		Mesa mockedMesa1 = Mockito.mock(Mesa.class);
-		Mesa mockedMesa2 = Mockito.mock(Mesa.class);
-		Mockito.when(mockedMesa1.getCapacidad()).thenReturn(3);
-		Mockito.when(mockedMesa2.getCapacidad()).thenReturn(2);
-		List<Mesa> listaMesas = Arrays.asList(mockedMesa1, mockedMesa2);
+		List<Mesa> listaMesas = Arrays.asList(mockedMesaConReserva1, mockedMesaConReserva2);
+		List<Reserva> listaReservas = Arrays.asList(mockedReserva1, mockedReserva2);
 
 		Restaurante restaurante = new Restaurante();
 		long restauranteId = 1L;
+		restaurante.setId(restauranteId);
+		restaurante.setMesas(listaMesas);
 		long turnoId = 1L;
 		Date dia = new Date();
 
-		restaurante.setId(restauranteId);
-		Integer i = listaMesas.get(0).getCapacidad();
-
-		restaurante.setMesas(listaMesas);
+		Mockito.when(mockedMesaConReserva2.getCapacidad()).thenReturn(3);
+		Mockito.when(mockedMesaConReserva1.getCapacidad()).thenReturn(2);
 		Mockito.when(restauranteDAO.getRestaurante(restauranteId)).thenReturn(restaurante);
-
-		List<Reserva> listaReservas = new ArrayList<>();
-		Reserva mockedReserva = Mockito.mock(Reserva.class);
-		Mockito.when(mockedReserva.getMesa()).thenReturn(mockedMesa2);
-		listaReservas.add(mockedReserva);
-
+		Mockito.when(mockedReserva1.getMesa()).thenReturn(mockedMesaConReserva1);
+		Mockito.when(mockedReserva2.getMesa()).thenReturn(mockedMesaConReserva2);
 		Mockito.when(reservaDAO.getReservasByRestaurantAndDayAndTurn(restauranteId, dia, turnoId))
 				.thenReturn(listaReservas);
+
+		// when
+		Mesa mesaLibre = negocioReservaImpl.getMesaLibreParaReserva(restauranteId, dia, turnoId, 2);
+
+		// then
+		assertNull(mesaLibre);
+
+	}
+
+	@Test
+	public void givenTwoTablesNoneReservedOneOfEnoughCapacityThenReturnedTheFreeTable() {
+
+		// given
+		List<Mesa> listaMesas = Arrays.asList(mockedMesaSinReserva1, mockedMesaSinReserva2);
+		List<Reserva> listaReservas = new ArrayList<>();
+
+		Restaurante restaurante = new Restaurante();
+		long restauranteId = 1L;
+		restaurante.setId(restauranteId);
+		restaurante.setMesas(listaMesas);
+		long turnoId = 1L;
+		Date dia = new Date();
+
+		Mockito.when(mockedMesaSinReserva1.getCapacidad()).thenReturn(1);
+		Mockito.when(mockedMesaSinReserva2.getCapacidad()).thenReturn(2);
+		Mockito.when(restauranteDAO.getRestaurante(restauranteId)).thenReturn(restaurante);
+		Mockito.when(mockedReserva1.getMesa()).thenReturn(mockedMesaConReserva1);
+		Mockito.when(reservaDAO.getReservasByRestaurantAndDayAndTurn(restauranteId, dia, turnoId))
+				.thenReturn(listaReservas);
+
 		Mesa expectedMesa = listaMesas.get(1);
 
 		// when
@@ -127,44 +182,7 @@ public class NegocioReservaImplTest {
 
 		// then
 		assertNotNull(mesaLibre);
+		assertEquals(mesaLibre, expectedMesa);
 
-		// assertEquals(mesaLibre, expectedMesa);
 	}
 }
-//	public void getMesaLibreParaReservaFunciona() {
-//		// given
-//
-//		Mesa mockedMesa1 = Mockito.mock(Mesa.class);
-//		Mesa mockedMesa2 = Mockito.mock(Mesa.class);
-//		Mockito.when(mockedMesa1.getCapacidad()).thenReturn(3);
-//		Mockito.when(mockedMesa2.getCapacidad()).thenReturn(2);
-//		List<Mesa> listaMesas = Arrays.asList(mockedMesa1, mockedMesa2);
-//
-//		Restaurante restaurante = new Restaurante();
-//		long restauranteId = 1L;
-//		long turnoId = 1L;
-//		Date dia = new Date();
-//
-//		restaurante.setId(restauranteId);
-//		Integer i = listaMesas.get(0).getCapacidad();
-//		
-//		restaurante.setMesas(listaMesas);
-//		Mockito.when(restauranteDAO.getRestaurante(restauranteId)).thenReturn(restaurante);
-//		
-//		List<Reserva> listaReservas = new ArrayList<>();
-//		Reserva mockedReserva = Mockito.mock(Reserva.class);
-//		Mockito.when(mockedReserva.getMesa()).thenReturn(mockedMesa2);
-//		listaReservas.add(mockedReserva);
-//
-//		Mockito.when(reservaDAO.getReservasByRestaurantAndDayAndTurn(restauranteId, dia, turnoId))
-//				.thenReturn(listaReservas);
-//		Mesa expectedMesa = listaMesas.get(1);
-//
-//		// when
-//		Mesa mesaLibre = negocioReservaImpl.getMesaLibreParaReserva(restauranteId, dia, turnoId, 2);
-//
-//		// then
-//		assertNotNull(mesaLibre);
-//
-//		// assertEquals(mesaLibre, expectedMesa);
-//	}
