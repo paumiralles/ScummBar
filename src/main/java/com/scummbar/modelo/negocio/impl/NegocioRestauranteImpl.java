@@ -19,10 +19,6 @@ import com.scummbar.modelo.negocio.NegocioRestaurante;
 @Transactional
 public class NegocioRestauranteImpl implements NegocioRestaurante {
 
-	public NegocioRestauranteImpl(ReservaDAO reservaDAO) {
-		this.reservaDAO = reservaDAO;
-	}
-
 	@Autowired
 	private RestauranteDAO restauranteDAO;
 	@Autowired

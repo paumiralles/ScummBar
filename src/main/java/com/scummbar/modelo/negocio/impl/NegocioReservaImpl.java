@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.scummbar.dao.MesaDAO;
 import com.scummbar.dao.ReservaDAO;
 import com.scummbar.dao.RestauranteDAO;
 import com.scummbar.modelo.entities.Mesa;
@@ -25,11 +26,13 @@ public class NegocioReservaImpl implements NegocioReserva {
 	private ReservaDAO reservaDAO;
 	@Autowired
 	private RestauranteDAO restauranteDAO;
+	@Autowired
+	private MesaDAO mesaDAO;
 
-	public NegocioReservaImpl(RestauranteDAO restauranteDAO2, ReservaDAO reservaDAO2) {
-		this.reservaDAO = reservaDAO2;// TODO Auto-generated constructor stub
-		this.restauranteDAO = restauranteDAO2;
-	}
+//	public NegocioReservaImpl(RestauranteDAO restauranteDAO2, ReservaDAO reservaDAO2) {
+//		this.reservaDAO = reservaDAO2;// TODO Auto-generated constructor stub
+//		this.restauranteDAO = restauranteDAO2;
+//	}
 
 	@Override
 	public void addReserva(Reserva reserva) {
@@ -68,10 +71,13 @@ public class NegocioReservaImpl implements NegocioReserva {
 	// disponible, retorna nulo.
 	@Override
 	public Mesa getMesaLibreParaReserva(Long restauranteId, Date dia, Long turnoId, Integer personas) {
-		List<Mesa> listaMesas = restauranteDAO.getRestaurante(restauranteId).getMesas();
-		List<Reserva> listaReservas = reservaDAO.getReservasByRestaurantAndDayAndTurn(restauranteId, dia, turnoId);
-		List<Mesa> mesaLibre = getMesasLibresDeRestaurante(listaMesas, listaReservas);
-		return mesaLibre.stream().filter(m -> m.getCapacidad() >= personas).sorted().findFirst().orElse(null);
+
+		return mesaDAO.getMesaLibre(restauranteId, turnoId, dia, personas);
+
+//		List<Mesa> listaMesas = restauranteDAO.getRestaurante(restauranteId).getMesas();
+//		List<Reserva> listaReservas = reservaDAO.getReservasByRestaurantAndDayAndTurn(restauranteId, dia, turnoId);
+//		List<Mesa> mesaLibre = getMesasLibresDeRestaurante(listaMesas, listaReservas);
+//		return mesaLibre.stream().filter(m -> m.getCapacidad() >= personas).sorted().findFirst().orElse(null);
 	}
 
 	// Este método retorna una lista con las mesas disponibles de un restaurante

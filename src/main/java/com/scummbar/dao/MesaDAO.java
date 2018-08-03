@@ -1,9 +1,9 @@
 package com.scummbar.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.scummbar.modelo.entities.Mesa;
-import com.scummbar.modelo.entities.Reserva;
 
 public interface MesaDAO {
 
@@ -11,12 +11,12 @@ public interface MesaDAO {
 
 	void updateMesa(Mesa mesa);
 
-	Mesa getMesa(long id);
+	Mesa get(long id);
 
 	void deleteMesa(long id);
 
 	List<Mesa> getMesas();
 
-	Mesa getMesaLibre(List<Mesa> listaTodasMesas, List<Reserva> listaReservas);
+	Mesa getMesaLibre(long restauranteId, long turnoId, Date dia, int personas);
 
 }
